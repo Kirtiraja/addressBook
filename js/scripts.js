@@ -38,15 +38,28 @@ AddressBook.prototype.deleteContact = function(id) {
 }
 
 // Business Logic for Contacts ---------
-function Contact(firstName, lastName, phoneNumber) {
+function Contact(firstName, lastName, phoneNumber, email, workAddress, homeAddress) {
   this.firstName = firstName,
   this.lastName = lastName,
-  this.phoneNumber = phoneNumber
-}
+  this.phoneNumber = phoneNumber,
+  this.userEmail = email,
+  this.workAddress = workAddress,
+  this.homeAddress = homeAddress
+
+  }
+
+
 
 Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
+
+
+
+
+
+
+
 
 // User Interface Logic ---------
 var addressBook = new AddressBook();
@@ -55,7 +68,7 @@ function displayContactDetails(addressBookToDisplay) {
   var contactsList = $("ul#contacts");
   var htmlForContactInfo = "";
   addressBookToDisplay.contacts.forEach(function(contact) {
-    htmlForContactInfo += "<li id=" + contact.id + ">" + contact.firstName + " " + contact.lastName + "</li>";
+    htmlForContactInfo += "<li id=" + contact.id + ">" + "Name: " + contact.firstName + " " + contact.lastName + " " + "Email: " + contact.userEmail + " " + "Phone: " + contact.phoneNumber + " " + "Work Address: " + contact.workAddress + " " + "Home Address: " + contact.homeAddress + "</li>";
   });
   contactsList.html(htmlForContactInfo);
 };
@@ -73,7 +86,10 @@ $(document).ready(function() {
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
     var inputtedPhoneNumber = $("input#new-phone-number").val();
-    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber);
+    var inputtedEmail = $("input#new-email").val();
+    var inputtedWorkAddress = $("input#work-address").val();
+    var inputtedHomeAddress = $("input#home-address").val();
+    var newContact = new Contact(inputtedFirstName, inputtedLastName, inputtedPhoneNumber, inputtedEmail, inputtedWorkAddress, inputtedHomeAddress);
     addressBook.addContact(newContact);
     displayContactDetails(addressBook);
   })
